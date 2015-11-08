@@ -1,0 +1,74 @@
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   src/app/code/community/Fontis/Australia/Block/Autocomplete.php
+#	modified:   src/app/code/community/Fontis/Australia/Block/Bpay/Info.php
+#	modified:   src/app/code/community/Fontis/Australia/Block/Directdeposit/Info.php
+#	modified:   src/app/code/community/Fontis/Australia/Block/Eparcel/Rate/Export.php
+#	modified:   src/app/code/community/Fontis/Australia/Helper/Address.php
+#	modified:   src/app/code/community/Fontis/Australia/Helper/Australiapost.php
+#	modified:   src/app/code/community/Fontis/Australia/Helper/Clickandsend.php
+#	modified:   src/app/code/community/Fontis/Australia/Helper/Data.php
+#	modified:   src/app/code/community/Fontis/Australia/Helper/Eparcel.php
+#	modified:   src/app/code/community/Fontis/Australia/Model/Address/Australiapost.php
+#	modified:   src/app/code/community/Fontis/Australia/Model/Address/Config/Backend.php
+#	modified:   src/app/code/community/Fontis/Australia/Model/Address/Interface.php
+#	modified:   src/app/code/community/Fontis/Australia/Model/Mysql4/Shipping/Carrier/Eparcel.php
+#	modified:   src/app/code/community/Fontis/Australia/Model/Observer.php
+#	modified:   src/app/code/community/Fontis/Australia/Model/Payment/Bpay.php
+#	modified:   src/app/code/community/Fontis/Australia/Model/Payment/Directdeposit.php
+#	modified:   src/app/code/community/Fontis/Australia/Model/Shipping/Carrier/Australiapost.php
+#	modified:   src/app/code/community/Fontis/Australia/Model/Shipping/Carrier/Clickandsend.php
+#	modified:   src/app/code/community/Fontis/Australia/Model/Shipping/Carrier/Eparcel.php
+#	modified:   src/app/code/community/Fontis/Australia/Model/Shipping/Carrier/Eparcel/Export/Csv.php
+#	modified:   src/app/code/community/Fontis/Australia/Model/Shipping/Config/Eparcel.php
+#	modified:   src/app/code/community/Fontis/Australia/controllers/AddressController.php
+#	modified:   src/app/code/community/Fontis/Australia/controllers/ClickandsendController.php
+#	modified:   src/app/code/community/Fontis/Australia/controllers/EparcelController.php
+#	modified:   src/app/code/community/Fontis/Australia/etc/adminhtml.xml
+#	modified:   src/app/code/community/Fontis/Australia/etc/config.xml
+#	modified:   src/app/code/community/Fontis/Australia/etc/system.xml
+#	modified:   src/app/code/community/Fontis/Australia/sql/australia_setup/mysql4-upgrade-2.2.1-2.2.2.php
+#	modified:   src/app/design/frontend/base/default/layout/fontis/australia.xml
+#	modified:   src/app/design/frontend/base/default/template/fontis/australia/checkout/onepage.phtml
+#	modified:   src/app/design/frontend/base/default/template/fontis/australia/payment/bpay/info.phtml
+#	modified:   src/app/design/frontend/base/default/template/fontis/australia/postcode-checkout.phtml
+#	modified:   src/app/etc/modules/Fontis_Australia.xml
+#	modified:   src/lib/Doghouse/Australia/Eparcel.php
+#	modified:   src/lib/Doghouse/Australia/Eparcel/Parcel.php
+#	modified:   src/lib/Doghouse/Australia/Eparcel/Parcel/Carton.php
+#	modified:   src/lib/Doghouse/Australia/Eparcel/Record.php
+#	modified:   src/lib/Doghouse/Australia/Eparcel/Record/Article.php
+#	modified:   src/lib/Doghouse/Australia/Eparcel/Record/Article/CubicWeight.php
+#	modified:   src/lib/Doghouse/Australia/Eparcel/Record/Consignment.php
+#	modified:   src/lib/Doghouse/Australia/Eparcel/Record/Good.php
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	git_status.txt
+#	src/app/code/community/Fontis/Australia/Block/Getprice.php
+#	src/app/code/community/Fontis/Australia/Block/Googleproducts.php
+#	src/app/code/community/Fontis/Australia/Block/Myshopping.php
+#	src/app/code/community/Fontis/Australia/Block/Shopbot.php
+#	src/app/code/community/Fontis/Australia/Block/Shoppingdotcom.php
+#	src/app/code/community/Fontis/Australia/Helper/Bpay.php
+#	src/app/code/community/Fontis/Australia/Model/Child.php
+#	src/app/code/community/Fontis/Australia/Model/Config/ProductAttributes.php
+#	src/app/code/community/Fontis/Australia/Model/FeedCronBase.php
+#	src/app/code/community/Fontis/Australia/Model/Getprice.php
+#	src/app/code/community/Fontis/Australia/Model/Getprice/
+#	src/app/code/community/Fontis/Australia/Model/Googleproducts.php
+#	src/app/code/community/Fontis/Australia/Model/Googleproducts/
+#	src/app/code/community/Fontis/Australia/Model/Myshopping.php
+#	src/app/code/community/Fontis/Australia/Model/Myshopping/
+#	src/app/code/community/Fontis/Australia/Model/Shipping/Carrier/Eparcel/Export/Abstract.php
+#	src/app/code/community/Fontis/Australia/Model/Shipping/Config/Shippingmethods.php
+#	src/app/code/community/Fontis/Australia/Model/Shopbot.php
+#	src/app/code/community/Fontis/Australia/Model/Shopbot/
+#	src/app/code/community/Fontis/Australia/Model/Shoppingdotcom.php
+#	src/app/code/community/Fontis/Australia/Model/Shoppingdotcom/
+#	src/app/code/community/Fontis/Australia/lib/
+no changes added to commit (use "git add" and/or "git commit -a")

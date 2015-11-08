@@ -39,7 +39,6 @@ class Fontis_Australia_Block_Directdeposit_Info extends Mage_Payment_Block_Info
         if (is_null($this->_accountName)) {
             $this->_convertAdditionalData();
         }
-
         return $this->_accountName;
     }
 
@@ -53,7 +52,6 @@ class Fontis_Australia_Block_Directdeposit_Info extends Mage_Payment_Block_Info
         if (is_null($this->_accountBSB)) {
             $this->_convertAdditionalData();
         }
-
         return $this->_accountBSB;
     }
 
@@ -67,7 +65,6 @@ class Fontis_Australia_Block_Directdeposit_Info extends Mage_Payment_Block_Info
         if (is_null($this->_accountNumber)) {
             $this->_convertAdditionalData();
         }
-
         return $this->_accountNumber;
     }
 
@@ -81,7 +78,6 @@ class Fontis_Australia_Block_Directdeposit_Info extends Mage_Payment_Block_Info
 		if (is_null($this->_message)) {
 			$this->_convertAdditionalData();
 		}
-
 		return $this->_message;
 	}
 
@@ -93,7 +89,6 @@ class Fontis_Australia_Block_Directdeposit_Info extends Mage_Payment_Block_Info
     protected function _convertAdditionalData()
     {
         $details = @unserialize($this->getInfo()->getAdditionalData());
-
         if (is_array($details)) {
             $this->_accountName = isset($details['account_name']) ? (string) $details['account_name'] : '';
             $this->_accountBSB = isset($details['account_bsb']) ? (string) $details['account_bsb'] : '';
@@ -105,7 +100,6 @@ class Fontis_Australia_Block_Directdeposit_Info extends Mage_Payment_Block_Info
             $this->_accountNumber = '';
             $this->_message = '';
         }
-
         return $this;
     }
 }

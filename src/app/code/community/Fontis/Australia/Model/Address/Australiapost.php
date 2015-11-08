@@ -15,7 +15,6 @@
  * @copyright  Copyright (c) 2014 Fontis Pty. Ltd. (http://www.fontis.com.au)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
-
 use Auspost\Common\Auspost;
 use Auspost\DeliveryChoice\DeliveryChoiceClient;
 
@@ -24,7 +23,6 @@ use Auspost\DeliveryChoice\DeliveryChoiceClient;
  */
 class Fontis_Australia_Model_Address_Australiapost implements Fontis_Australia_Model_Address_Interface
 {
-    /** @var DeliveryChoiceClient */
     protected $client;
 
     public function __construct()
@@ -73,7 +71,6 @@ class Fontis_Australia_Model_Address_Australiapost implements Fontis_Australia_M
             'postcode' => $postcode,
             'country' => $country
         );
-
         if (count($street) > 1) {
             $address['address_line_2'] = $street[1];
         }
@@ -91,7 +88,6 @@ class Fontis_Australia_Model_Address_Australiapost implements Fontis_Australia_M
             $result['ValidAustralianAddress'] = false;
             Mage::logException($e);
         }
-
         return $result;
     }
 }

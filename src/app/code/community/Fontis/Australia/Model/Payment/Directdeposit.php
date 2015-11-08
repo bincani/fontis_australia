@@ -26,11 +26,10 @@
  */
 class Fontis_Australia_Model_Payment_Directdeposit extends Mage_Payment_Model_Method_Abstract
 {
-    const CODE = 'directdeposit_au';
 
-    protected $_code  = self::CODE;
-    protected $_formBlockType = 'Fontis_Australia_Block_Directdeposit_Form';
-    protected $_infoBlockType = 'Fontis_Australia_Block_Directdeposit_Info';
+    protected $_code  = 'directdeposit_au';
+    protected $_formBlockType = 'fontis_australia_block_directdeposit_form';
+    protected $_infoBlockType = 'fontis_australia_block_directdeposit_info';
 
     /**
      * Set to allow the admin to set whether or not payment has been received
@@ -81,77 +80,54 @@ class Fontis_Australia_Model_Payment_Directdeposit extends Mage_Payment_Model_Me
      */
     public function assignData($data)
     {
-        $storeId = $this->getInfoInstance()->getQuote()->getStoreId();
         $details = array();
-
         if ($this->getAccountName()) {
-            $details['account_name'] = $this->getAccountName($storeId);
+            $details['account_name'] = $this->getAccountName();
         }
-
         if ($this->getAccountBSB()) {
-            $details['account_bsb'] = $this->getAccountBSB($storeId);
+            $details['account_bsb'] = $this->getAccountBSB();
         }
-
         if ($this->getAccountNumber()) {
-            $details['account_number'] = $this->getAccountNumber($storeId);
+            $details['account_number'] = $this->getAccountNumber();
         }
-
         if ($this->getMessage()) {
-            $details['message'] = $this->getMessage($storeId);
+            $details['message'] = $this->getMessage();
         }
-
         if (!empty($details)) {
             $this->getInfoInstance()->setAdditionalData(serialize($details));
         }
-
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getAccountName($storeId = null)
+    public function getAccountName()
     {
-        if ($storeId === null) {
-            $storeId = $this->getInfoInstance()->getQuote()->getStoreId();
-        }
-
-        return Mage::getStoreConfig('payment/directdeposit_au/account_name', $storeId);
+        return Mage::getStoreConfig('payment/directdeposit_au/account_name', $this->getInfoInstance()->getQuote()->getStoreId());
     }
 
     /**
      * @return string
      */
-    public function getAccountBSB($storeId = null)
+    public function getAccountBSB()
     {
-        if ($storeId === null) {
-            $storeId = $this->getInfoInstance()->getQuote()->getStoreId();
-        }
-
-        return Mage::getStoreConfig('payment/directdeposit_au/account_bsb', $storeId);
+        return Mage::getStoreConfig('payment/directdeposit_au/account_bsb', $this->getInfoInstance()->getQuote()->getStoreId());
     }
 
     /**
      * @return string
      */
-    public function getAccountNumber($storeId = null)
+    public function getAccountNumber()
     {
-        if ($storeId === null) {
-            $storeId = $this->getInfoInstance()->getQuote()->getStoreId();
-        }
-
-        return Mage::getStoreConfig('payment/directdeposit_au/account_number', $storeId);
+        return Mage::getStoreConfig('payment/directdeposit_au/account_number', $this->getInfoInstance()->getQuote()->getStoreId());
     }
 
     /**
      * @return string
      */
-    public function getMessage($storeId = null)
+    public function getMessage()
     {
-        if ($storeId === null) {
-            $storeId = $this->getInfoInstance()->getQuote()->getStoreId();
-        }
-
-        return Mage::getStoreConfig('payment/directdeposit_au/message', $storeId);
+        return Mage::getStoreConfig('payment/directdeposit_au/message', $this->getInfoInstance()->getQuote()->getStoreId());
     }
 }

@@ -130,11 +130,7 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment>
-                                Product attribute code used for length. This will be used to calculate shipping
-                                rates for orders with only one product. For orders with more than one product (or
-                                if this field is not set) then Default Parcel Length will be used for calculating prices.
-                            </comment>
+                            <comment>Product attribute code used for length. This will be used to calculate shipping rates for orders with only one product. For orders with more than one product (or if this field is not set) then Default Parcel Length will be used for calculating prices.</comment>
                         </length_attribute>
                         <default_length>
                             <label>Default Parcel Length (cm)</label>
@@ -536,19 +532,9 @@
                             <show_in_store>1</show_in_store>
                             <comment>Set to NO if you do not accept credit card payments through BPAY. This simply changes the text presented to the customer.</comment>
                         </accept_credit_cards>
-                        <use_mod_10_v_5 translate="label">
-                            <label>Use Mod 10 Version 5</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>66</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>If set to NO, Mod 10 Version 1 is used.</comment>
-                        </use_mod_10_v_5>
                         <message translate="label">
                             <label>Message</label>
-                            <sort_order>70</sort_order>
+                            <sort_order>64</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
@@ -1184,16 +1170,6 @@
                     <show_in_website>1</show_in_website>
                     <show_in_store>1</show_in_store>
                     <fields>
-                        <allow_custom_charge_codes translate="label">
-                            <label>Custom eParcel Charge Code</label>
-                            <frontend_type>select</frontend_type>
-                            <source_model>adminhtml/system_config_source_yesno</source_model>
-                            <sort_order>0</sort_order>
-                            <show_in_default>1</show_in_default>
-                            <show_in_website>1</show_in_website>
-                            <show_in_store>1</show_in_store>
-                            <comment>Allow custom (non-standard) charge codes from uploaded CSV files? For example, "3I55".</comment>
-                        </allow_custom_charge_codes>
                         <default_charge_code_individual translate="label">
                             <label>Default Charge Code (Individual)</label>
                             <frontend_type>text</frontend_type>

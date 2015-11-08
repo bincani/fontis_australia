@@ -18,23 +18,19 @@
 
 /**
  * Address validation backend interface
- *
- * @category   Fontis
- * @package    Fontis_Australia
  */
 interface Fontis_Australia_Model_Address_Interface
 {
     /**
-     * Sends the customer address for validation
-     *
-     * Following validation, the method maps the response to the following array structure:
+     * Sends the customer's address off to some backend for validation and then
+     * maps the response to the following array structure:
      *
      * array(
      *     'ValidAustralianAddress' => true,
      *     'Address' => array(
      *         'AddressLine' => '42 Wallaby Way',
      *         'Country' => array(
-     *             'CountryCode' => Fontis_Australia_Helper_Data::AUSTRALIA_COUNTRY_CODE,
+     *             'CountryCode' => 'AU',
      *             'CountryName' => 'Australia'
      *         ),
      *         'PostCode' => '2000',
@@ -43,7 +39,8 @@ interface Fontis_Australia_Model_Address_Interface
      *     )
      * );
      *
-     * If the value for the 'ValidAustraliaAddress' key is false then the 'Address' key isn't needed.
+     * Tip: If the value for the 'ValidAustraliaAddress' key is false then
+     * the 'Address' key isn't needed.
      *
      * Note: Country and SuburbOrPlaceOrLocality are used by Magento.
      *

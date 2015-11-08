@@ -16,19 +16,13 @@
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
 
-/**
- * Helper methods for eParcel support
- *
- * @category   Fontis
- * @package    Fontis_Australia
- */
 class Fontis_Australia_Helper_Eparcel extends Mage_Core_Helper_Abstract
 {
     const XML_PATH_EMAIL_NOTIFICATION_ENABLED = 'doghouse_eparcelexport/email_notification/enabled';
     const XML_PATH_EMAIL_NOTIFICATION_LEVEL = 'doghouse_eparcelexport/email_notification/level';
 
     /* AUSTRALIA POST CHARGE CODES */
-    private $standardChargeCodes = array(
+    private $chargeCodes = array(
 
         /* Domestic / Standard / Individual */
         'S1', // EPARCEL 1       Domestic
@@ -118,14 +112,6 @@ class Fontis_Australia_Helper_Eparcel extends Mage_Core_Helper_Abstract
      */
     public function isValidChargeCode($chargeCode)
     {
-        $isStandard = in_array($chargeCode, $this->standardChargeCodes);
-
-        if (!$isStandard && Mage::getStoreConfigFlag('doghouse_eparcelexport/charge_codes/allow_custom_charge_codes')) {
-            // Charge code not found in the standard list of codes, but system config tells us this is OK
-            // @see https://github.com/fontis/fontis_australia/issues/39
-            return true;
-        }
-
-        return false;
+        return in_array($chargeCode, $this->chargeCodes);
     }
 }
