@@ -17,6 +17,7 @@
  * @copyright  Copyright (c) 2014 Fontis Pty. Ltd. (http://www.fontis.com.au)
  * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  */
+
 use Auspost\Common\Auspost;
 use Auspost\Postage\PostageClient;
 use Auspost\Postage\Enum\ServiceCode;
@@ -54,7 +55,6 @@ class Fontis_Australia_Model_Shipping_Carrier_Australiapost
                 'developer_mode' => true
             );
         } else if ($apiKey) {
-            //TODO: Specify the encrypted backend model in config.xml so we no longer need to decrypt this manually. This will be a breaking change.
             $config = array(
                 'auth_key' => Mage::helper('core')->decrypt($apiKey)
             );
@@ -63,7 +63,12 @@ class Fontis_Australia_Model_Shipping_Carrier_Australiapost
         }
 
         if (!empty($config)) {
-            $this->_client = Auspost::factory($config)->get('postage');
+            try {
+                $this->_client = Auspost::factory($config)->get('postage');
+            }
+            catch(Exception $ex) {
+                Mage::getSingleton('adminhtml/session')->addWarning(sprintf("%s: %s", __METHOD__, $ex->getMessage()) );
+            }
         }
 
         $this->_result = Mage::getModel('shipping/rate_result');
@@ -84,7 +89,7 @@ class Fontis_Australia_Model_Shipping_Carrier_Australiapost
 
         // Check if this method is even applicable (shipping from Australia)
         $origCountry = Mage::getStoreConfig('shipping/origin/country_id', $request->getStore());
-        if ($origCountry != 'AU') {
+        if ($origCountry != Fontis_Australia_Helper_Data::AUSTRALIA_COUNTRY_CODE) {
             return false;
         }
 
@@ -95,27 +100,28 @@ class Fontis_Australia_Model_Shipping_Carrier_Australiapost
         $fromPostcode = (int)Mage::getStoreConfig('shipping/origin/postcode', $this->getStore());
         $toPostcode = (int)$request->getDestPostcode();
 
-        if ($request->getDestCountryId()) {
-            $destCountry = $request->getDestCountryId();
-        } else {
-            $destCountry = 'AU';
+        $destCountry = $request->getDestCountryId();
+        if (!$destCountry) {
+            $destCountry = Fontis_Australia_Helper_Data::AUSTRALIA_COUNTRY_CODE;
         }
 
-        $sweight = (int)$request->getPackageWeight();
         /** @var Fontis_Australia_Helper_Australiapost $helper */
         $helper = Mage::helper('australia/australiapost');
-        $sheight = (int)$helper->getAttribute($request, 'height');
-        $slength = (int)$helper->getAttribute($request, 'length');
-        $swidth = (int)$helper->getAttribute($request, 'width');
-        $extraCover = $request->getPackageValue() > self::EXTRA_COVER_LIMIT ? self::EXTRA_COVER_LIMIT : (int)$request->getPackageValue();
+
+        $weight = (int)$request->getPackageWeight();
+        $length = (int)$helper->getAttribute($request, 'length');
+        $width = (int)$helper->getAttribute($request, 'width');
+        $height = (int)$helper->getAttribute($request, 'height');
+
+        $extraCover = max((int)$request->getPackageValue(), self::EXTRA_COVER_LIMIT);
 
         $config = array(
             'from_postcode' => $fromPostcode,
             'to_postcode' => $toPostcode,
-            'length' => $slength,
-            'width' => $swidth,
-            'height' => $sheight,
-            'weight' => $sweight,
+            'length' => $length,
+            'width' => $width,
+            'height' => $height,
+            'weight' => $weight,
             'country_code' => $destCountry
         );
         $this->_getQuotes($extraCover, $config);
@@ -124,6 +130,7 @@ class Fontis_Australia_Model_Shipping_Carrier_Australiapost
         if (empty($_result)) {
             return false;
         }
+
         return $this->_result;
     }
 
@@ -131,7 +138,7 @@ class Fontis_Australia_Model_Shipping_Carrier_Australiapost
     {
         $destCountry = $config['country_code'];
         try {
-            if ($destCountry == 'AU') {
+            if ($destCountry == Fontis_Australia_Helper_Data::AUSTRALIA_COUNTRY_CODE) {
                 $services = $this->_client->listDomesticParcelServices($config);
             } else {
                 $services = $this->_client->listInternationalParcelServices($config);
@@ -170,7 +177,7 @@ class Fontis_Australia_Model_Shipping_Carrier_Australiapost
                     // extrapolate the default international shipping method
                     // from what we know about the service itself
                     if (
-                        $destCountry != 'AU' &&
+                        $destCountry != Fontis_Australia_Helper_Data::AUSTRALIA_COUNTRY_CODE &&
                         $this->_isAvailableShippingMethod($serviceName, $destCountry)
                     ) {
                         $method = $this->createMethod($serviceCode, $serviceName, $servicePrice);
@@ -194,7 +201,7 @@ class Fontis_Australia_Model_Shipping_Carrier_Australiapost
                             'extra_cover' => $extraCover
                         ));
                         try {
-                            if ($destCountry == 'AU') {
+                            if ($destCountry == Fontis_Australia_Helper_Data::AUSTRALIA_COUNTRY_CODE) {
                                 $postage = $this->_client->calculateDomesticParcelPostage($config);
                             } else {
                                 $postage = $this->_client->calculateInternationalParcelPostage($config);
@@ -239,7 +246,7 @@ class Fontis_Australia_Model_Shipping_Carrier_Australiapost
                             )
                         ) {
                             try {
-                                if ($destCountry == 'AU') {
+                                if ($destCountry == Fontis_Australia_Helper_Data::AUSTRALIA_COUNTRY_CODE) {
                                     $config = array_merge($config, array(
                                         'suboption_code' => ServiceOption::AUS_SERVICE_OPTION_EXTRA_COVER,
                                     ));
@@ -338,13 +345,13 @@ class Fontis_Australia_Model_Shipping_Carrier_Australiapost
         /** @var Fontis_Australia_Helper_Australiapost $helper */
         $helper = Mage::helper('australia/australiapost');
         $suboptions = array();
-        if ($helper->getPickUp() == $visibility && $destCountry != 'AU') {
+        if ($helper->getPickUp() == $visibility && $destCountry != Fontis_Australia_Helper_Data::AUSTRALIA_COUNTRY_CODE) {
             $suboptions[] = 'pick up';
         }
         if ($helper->getExtraCover() == $visibility) {
             $suboptions[] = 'extra cover';
         }
-        if ($helper->getSignatureOnDelivery() == $visibility && $destCountry == 'AU') {
+        if ($helper->getSignatureOnDelivery() == $visibility && $destCountry == Fontis_Australia_Helper_Data::AUSTRALIA_COUNTRY_CODE) {
             $suboptions[] = 'signature on delivery';
         }
         return $suboptions;
@@ -397,18 +404,24 @@ class Fontis_Australia_Model_Shipping_Carrier_Australiapost
         $helper = Mage::helper('australia');
         $codes = array(
             'services' => array(
-                'AUS_LETTER_EXPRESS_SMALL'          => $helper->__('Express Post Small Envelope'),
-                'AUS_LETTER_REGULAR_LARGE'          => $helper->__('Large Letter'),
+                'INTL_SERVICE_AIR_MAIL'             => $helper->__('Air Mail'),
                 'AUS_PARCEL_COURIER'                => $helper->__('Courier Post'),
                 'AUS_PARCEL_COURIER_SATCHEL_MEDIUM' => $helper->__('Courier Post Assessed Medium Satchel'),
+                'INTL_SERVICE_ECI_D'                => $helper->__('Express Courier International Documents'),
+                'INTL_SERVICE_ECI_M'                => $helper->__('Express Courier International Merchandise'),
+                'INTL_SERVICE_ECI_PLATINUM'         => $helper->__('Express Courier International Platinum'),
                 'AUS_PARCEL_EXPRESS'                => $helper->__('Express Post'),
+                'INTL_SERVICE_EPI'                  => $helper->__('Express Post International'),
+                'INTL_SERVICE_EPI_B4'               => $helper->__('Express Post International B4'),
+                'INTL_SERVICE_EPI_C5'               => $helper->__('Express Post International C5'),
+                'AUS_LETTER_EXPRESS_SMALL'          => $helper->__('Express Post Small Envelope'),
+                'AUS_LETTER_REGULAR_LARGE'          => $helper->__('Large Letter'),
+                'INTL_SERVICE_PTI'                  => $helper->__('Pack and Track International'),
                 'AUS_PARCEL_REGULAR'                => $helper->__('Parcel Post'),
-
-                'INT_PARCEL_COR_OWN_PACKAGING'      => $helper->__('International Courier'),
-                'INT_PARCEL_EXP_OWN_PACKAGING'      => $helper->__('International Express'),
-                'INT_PARCEL_STD_OWN_PACKAGING'      => $helper->__('International Standard'),
-                'INT_PARCEL_AIR_OWN_PACKAGING'      => $helper->__('International Economy Air'),
-                'INT_PARCEL_SEA_OWN_PACKAGING'      => $helper->__('International Economy Sea'),
+                'INTL_SERVICE_RPI'                  => $helper->__('Registered Post International'),
+                'INTL_SERVICE_RPI_B4'               => $helper->__('Registered Post International B4'),
+                'INTL_SERVICE_RPI_DLE'              => $helper->__('Registered Post International DLE'),
+                'INTL_SERVICE_SEA_MAIL'             => $helper->__('Sea Mail'),
             ),
             'extra_cover' => array(
                 'AUS_SERVICE_OPTION_SIGNATURE_ON_DELIVERY'       => $helper->__('Signature on Delivery'),
