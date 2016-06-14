@@ -20,11 +20,7 @@
 <config>
     <modules>
         <Fontis_Australia>
-            <version>3.0.0</version>
-            <depends>
-                <Mage_Shipping />
-                <Mage_Payment />
-            </depends>
+            <version>3.1.5</version>
         </Fontis_Australia>
     </modules>
     <global>
@@ -179,7 +175,7 @@
             <adminhtml>
                 <args>
                     <modules>
-                        <fontis_australia before="Mage_Adminhtml">Fontis_Australia</fontis_australia>
+                        <fontis_australia before="Mage_Adminhtml">Fontis_Australia_Adminhtml</fontis_australia>
                     </modules>
                 </args>
             </adminhtml>
@@ -251,6 +247,9 @@
                 <nondelivery_instructions>5</nondelivery_instructions>
                 <from_country>AU</from_country>
             </clickandsend>
+            <address_validation>
+                <delivery_choices_account_password backend_model="adminhtml/system_config_backend_encrypted" />
+            </address_validation>
         </fontis_australia>
     </default>
 </config>

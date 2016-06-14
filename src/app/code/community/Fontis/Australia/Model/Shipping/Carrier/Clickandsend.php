@@ -224,7 +224,7 @@ class Fontis_Australia_Model_Shipping_Carrier_Clickandsend
         ) {
             $block->getMassactionBlock()->addItem('clickandsendexport', array(
                 'label' => $block->__('Export to CSV (Click & Send)'),
-                'url'   => $block->getUrl('australia/clickandsend/export')
+                'url'   => $block->getUrl('*/australia_clickandsend/export')
             ));
         }
     }

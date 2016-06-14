@@ -19,7 +19,7 @@
 /**
  * Controller handling order export requests.
  */
-class Fontis_Australia_EparcelController extends Mage_Adminhtml_Controller_Action
+class Fontis_Australia_Adminhtml_Australia_EparcelController extends Mage_Adminhtml_Controller_Action
 {
     const ADMINHTML_SALES_ORDER_INDEX = 'adminhtml/sales_order/index';
 

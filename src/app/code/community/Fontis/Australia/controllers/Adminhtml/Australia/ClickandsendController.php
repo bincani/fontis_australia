@@ -19,7 +19,7 @@
 /**
  * Controller handling order export requests.
  */
-class Fontis_Australia_ClickandsendController extends Mage_Adminhtml_Controller_Action
+class Fontis_Australia_Adminhtml_Australia_ClickandsendController extends Mage_Adminhtml_Controller_Action
 {
     /**
      * Export Orders to CSV
