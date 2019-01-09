@@ -97,10 +97,12 @@ class Fontis_Australia_Model_Shipping_Carrier_Eparcel
                         (Mage::getStoreConfig('carriers/freeshipping/active'))
                         &&
                         ($request->getBaseSubtotalInclTax() >= Mage::getStoreConfig('carriers/freeshipping/free_shipping_subtotal'))
+                        ||
+                        $request->getFreeShipping()
                     ) {
                         $method->setPrice(0);
                         if (preg_match("/express/", $_method)) {
-                            $result->append($method);    
+                            $result->append($method);
                         }
                     }
                     else {
@@ -132,16 +134,18 @@ class Fontis_Australia_Model_Shipping_Carrier_Eparcel
                     (Mage::getStoreConfig('carriers/freeshipping/active'))
                     &&
                     ($request->getBaseSubtotalInclTax() >= Mage::getStoreConfig('carriers/freeshipping/free_shipping_subtotal'))
+                    ||
+                    $request->getFreeShipping()
                 ) {
                     $method->setPrice(0);
                     if (preg_match("/express/", $_method)) {
-                        $result->append($method);    
-                    }                    
+                        $result->append($method);
+                    }
                 }
                 else {
                     $method->setPrice($shippingPrice);
                     $result->append($method);
-                }                
+                }
             }
         }
 
