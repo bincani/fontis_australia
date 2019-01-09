@@ -7,12 +7,12 @@ Further documentation is available from the [Fontis Australia Extension](http://
 
 ## Multi-Warehouse
 
-As of 2.4.0 we added support for Multi Warehouse Extension in the eParcel Shipping Method. The eParcel rates can be specified for each of the Warehouse separately (eg. from Sydney - Warehouse ID = 1, from Melbourne Warehouse ID = 2).  
+As of 2.4.0 we added support for Multi Warehouse Extension in the eParcel Shipping Method. The eParcel rates can be specified for each of the Warehouse separately (eg. from Sydney - Warehouse ID = 1, from Melbourne Warehouse ID = 2).
 
 The import file for eParcel rates can have one additional column for the Warehouse ID (called stock_id in code). The complete import file structure:
 "Country", "Region/State", "Postcodes", "Weight from", "Weight to", "Parcel Cost", "Cost Per Kg", "Delivery Type", "Charge Code Ind", "Charge Code Bus", "Warehouse ID"
 
-Leave Warehouse ID empty when not using Multi Warehouse Extension. 
+Leave Warehouse ID empty when not using Multi Warehouse Extension.
 
 ## Importing eParcel feeds into Australia Post
 
@@ -27,3 +27,10 @@ To do this:
 ![australia post](https://cloud.githubusercontent.com/assets/181919/12737884/34a209dc-c9b0-11e5-9505-515994960078.png)
 
 > Note, this should only affect new eParcel clients and not existing ones.
+
+## RELEASE NOTES
+
+### 3.4.2
+- apply free shipping promo cart rules to the shipping prices
+- configure whether free shipping promo cart rules applies to express shipping
+- only show express shipping when free express shipping is available

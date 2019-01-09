@@ -97,11 +97,24 @@ class Fontis_Australia_Model_Shipping_Carrier_Eparcel
                         (Mage::getStoreConfig('carriers/freeshipping/active'))
                         &&
                         ($request->getBaseSubtotalInclTax() >= Mage::getStoreConfig('carriers/freeshipping/free_shipping_subtotal'))
-                        ||
-                        $request->getFreeShipping()
                     ) {
                         $method->setPrice(0);
                         if (preg_match("/express/", $_method)) {
+                            $result->append($method);
+                        }
+                    }
+                    else if ($request->getFreeShipping()) {
+                        if (Mage::getStoreConfig('carriers/eparcel/codes_apply_to_express', $request->getStoreId())) {
+                            $method->setPrice(0);
+                            if (preg_match("/express/", $_method)) {
+                                $result->append($method);
+                            }
+                        }
+                        else {
+                            $method->setPrice(0);
+                            if (preg_match("/express/", $_method)) {
+                                $method->setPrice($shippingPrice);
+                            }
                             $result->append($method);
                         }
                     }
@@ -134,11 +147,25 @@ class Fontis_Australia_Model_Shipping_Carrier_Eparcel
                     (Mage::getStoreConfig('carriers/freeshipping/active'))
                     &&
                     ($request->getBaseSubtotalInclTax() >= Mage::getStoreConfig('carriers/freeshipping/free_shipping_subtotal'))
-                    ||
-                    $request->getFreeShipping()
+
                 ) {
                     $method->setPrice(0);
                     if (preg_match("/express/", $_method)) {
+                        $result->append($method);
+                    }
+                }
+                else if ($request->getFreeShipping()) {
+                    if (Mage::getStoreConfig('carriers/eparcel/codes_apply_to_express', $request->getStoreId())) {
+                        $method->setPrice(0);
+                        if (preg_match("/express/", $_method)) {
+                            $result->append($method);
+                        }
+                    }
+                    else {
+                        $method->setPrice(0);
+                        if (preg_match("/express/", $_method)) {
+                            $method->setPrice($shippingPrice);
+                        }
                         $result->append($method);
                     }
                 }

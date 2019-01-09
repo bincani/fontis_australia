@@ -20,7 +20,7 @@
 <config>
     <modules>
         <Fontis_Australia>
-            <version>3.4.1</version>
+            <version>3.4.2</version>
         </Fontis_Australia>
     </modules>
     <global>
@@ -227,6 +227,7 @@
                 <signature_cost>6.44</signature_cost>
                 <insurance_step>100.0</insurance_step>
                 <insurance_cost_per_step>1.05</insurance_cost_per_step>
+                <codes_apply_to_express>0</codes_apply_to_express>
             </eparcel>
         </carriers>
         <payment>
