@@ -30,7 +30,7 @@ To do this:
 
 ## RELEASE NOTES
 
-### 3.4.2
+### 4.0.0
 - apply free shipping promo cart rules to the shipping prices
 - configure whether free shipping promo cart rules applies to express shipping
 - only show express shipping when free express shipping is available
