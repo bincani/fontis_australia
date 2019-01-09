@@ -89,11 +89,24 @@ class Fontis_Australia_Model_Shipping_Carrier_Eparcel
 
                     $shippingPrice = $this->getFinalPriceWithHandlingFee($rate['price']);
 
-                    $method->setPrice($shippingPrice);
                     $method->setCost($rate['cost']);
                     $method->setDeliveryType($rate['delivery_type']);
 
-                    $result->append($method);
+                    // free shipping
+                    if (
+                        (Mage::getStoreConfig('carriers/freeshipping/active'))
+                        &&
+                        ($request->getBaseSubtotalInclTax() >= Mage::getStoreConfig('carriers/freeshipping/free_shipping_subtotal'))
+                    ) {
+                        $method->setPrice(0);
+                        if (preg_match("/express/", $_method)) {
+                            $result->append($method);    
+                        }
+                    }
+                    else {
+                        $method->setPrice($shippingPrice);
+                        $result->append($method);
+                    }
                 }
             }
         } else {
@@ -111,11 +124,24 @@ class Fontis_Australia_Model_Shipping_Carrier_Eparcel
 
                 $shippingPrice = $this->getFinalPriceWithHandlingFee($rates['price']);
 
-                $method->setPrice($shippingPrice);
                 $method->setCost($rates['cost']);
                 $method->setDeliveryType($rates['delivery_type']);
 
-                $result->append($method);
+                // free shipping
+                if (
+                    (Mage::getStoreConfig('carriers/freeshipping/active'))
+                    &&
+                    ($request->getBaseSubtotalInclTax() >= Mage::getStoreConfig('carriers/freeshipping/free_shipping_subtotal'))
+                ) {
+                    $method->setPrice(0);
+                    if (preg_match("/express/", $_method)) {
+                        $result->append($method);    
+                    }                    
+                }
+                else {
+                    $method->setPrice($shippingPrice);
+                    $result->append($method);
+                }                
             }
         }
 
